@@ -17,12 +17,14 @@ struct PersistenceController {
             let newSplit = WorkoutSplit(context: viewContext)
             newSplit.name = "Sample Split"
             newSplit.creationDate = Date()
+            
             let newExercise = Exercise(context: viewContext)
             newExercise.name = "Sample Exercise"
             newExercise.reps = 10
             newExercise.sets = 3
             newExercise.weight = 50.0
             newExercise.date = Date()
+            
             newSplit.addToExercises(newExercise)
         }
         do {
@@ -49,7 +51,7 @@ struct PersistenceController {
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
 
-    // Helper functions to add WorkoutSplit and Exercise entries
+    // MARK: - Helper Functions
 
     func addWorkoutSplit(name: String) {
         let split = WorkoutSplit(context: container.viewContext)
@@ -81,4 +83,5 @@ struct PersistenceController {
         }
     }
 }
+
 

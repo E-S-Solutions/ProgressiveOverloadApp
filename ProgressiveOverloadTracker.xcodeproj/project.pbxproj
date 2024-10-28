@@ -37,9 +37,13 @@
 		3F211B872CD01F8800D02681 /* Exceptions for "Views" folder in "ProgressiveOverloadTracker" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				AboutView.swift,
 				AddExerciseForm.swift,
 				ArticlesView.swift,
 				HomeView.swift,
+				MainTabView.swift,
+				ProgressTrackerView.swift,
+				ProjectsView.swift,
 				WorkoutSplitView.swift,
 			);
 			target = 3F0BBC502CD00DB900EC8850 /* ProgressiveOverloadTracker */;

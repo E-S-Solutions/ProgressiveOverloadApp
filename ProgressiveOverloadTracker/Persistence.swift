@@ -1,4 +1,3 @@
-//
 //  Persistence.swift
 //  ProgressiveOverloadTracker
 //
@@ -15,14 +14,20 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         for _ in 0..<10 {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+            let newSplit = WorkoutSplit(context: viewContext)
+            newSplit.name = "Sample Split"
+            newSplit.creationDate = Date()
+            let newExercise = Exercise(context: viewContext)
+            newExercise.name = "Sample Exercise"
+            newExercise.reps = 10
+            newExercise.sets = 3
+            newExercise.weight = 50.0
+            newExercise.date = Date()
+            newSplit.addToExercises(newExercise)
         }
         do {
             try viewContext.save()
         } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
@@ -38,20 +43,42 @@ struct PersistenceController {
         }
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
+
+    // Helper functions to add WorkoutSplit and Exercise entries
+
+    func addWorkoutSplit(name: String) {
+        let split = WorkoutSplit(context: container.viewContext)
+        split.name = name
+        split.creationDate = Date()
+        saveContext()
+    }
+
+    func addExercise(to split: WorkoutSplit, name: String, reps: Int, sets: Int, weight: Double) {
+        let exercise = Exercise(context: container.viewContext)
+        exercise.name = name
+        exercise.reps = Int16(reps)
+        exercise.sets = Int16(sets)
+        exercise.weight = weight
+        exercise.date = Date()
+        split.addToExercises(exercise)
+        saveContext()
+    }
+
+    func saveContext() {
+        let context = container.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
 }
+

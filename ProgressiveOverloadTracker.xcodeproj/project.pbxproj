@@ -27,7 +27,22 @@
 		3F0BBC512CD00DB900EC8850 /* ProgressiveOverloadTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgressiveOverloadTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F0BBC662CD00DBA00EC8850 /* ProgressiveOverloadTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgressiveOverloadTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F0BBC702CD00DBA00EC8850 /* ProgressiveOverloadTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgressiveOverloadTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F211B882CD0234700D02681 /* Exercise+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3F211B892CD0234700D02681 /* Exercise+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3F211B8A2CD0234700D02681 /* WorkoutSplit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutSplit+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3F211B8B2CD0234700D02681 /* WorkoutSplit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutSplit+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		3F211B872CD01F8800D02681 /* Exceptions for "Views" folder in "ProgressiveOverloadTracker" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				HomeView.swift,
+				WorkoutSplitView.swift,
+			);
+			target = 3F0BBC502CD00DB900EC8850 /* ProgressiveOverloadTracker */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3F0BBC532CD00DB900EC8850 /* ProgressiveOverloadTracker */ = {
@@ -43,6 +58,29 @@
 		3F0BBC732CD00DBA00EC8850 /* ProgressiveOverloadTrackerUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ProgressiveOverloadTrackerUITests;
+			sourceTree = "<group>";
+		};
+		3F211B7D2CD01F8800D02681 /* Models */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3F211B7E2CD01F8800D02681 /* Resources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3F211B812CD01F8800D02681 /* ViewModels */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		3F211B842CD01F8800D02681 /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3F211B872CD01F8800D02681 /* Exceptions for "Views" folder in "ProgressiveOverloadTracker" target */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,10 +113,18 @@
 		3F0BBC482CD00DB900EC8850 = {
 			isa = PBXGroup;
 			children = (
+				3F211B882CD0234700D02681 /* Exercise+CoreDataClass.swift */,
+				3F211B892CD0234700D02681 /* Exercise+CoreDataProperties.swift */,
+				3F211B8A2CD0234700D02681 /* WorkoutSplit+CoreDataClass.swift */,
+				3F211B8B2CD0234700D02681 /* WorkoutSplit+CoreDataProperties.swift */,
 				3F0BBC532CD00DB900EC8850 /* ProgressiveOverloadTracker */,
 				3F0BBC692CD00DBA00EC8850 /* ProgressiveOverloadTrackerTests */,
 				3F0BBC732CD00DBA00EC8850 /* ProgressiveOverloadTrackerUITests */,
 				3F0BBC522CD00DB900EC8850 /* Products */,
+				3F211B7D2CD01F8800D02681 /* Models */,
+				3F211B7E2CD01F8800D02681 /* Resources */,
+				3F211B812CD01F8800D02681 /* ViewModels */,
+				3F211B842CD01F8800D02681 /* Views */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,6 +155,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				3F0BBC532CD00DB900EC8850 /* ProgressiveOverloadTracker */,
+				3F211B7E2CD01F8800D02681 /* Resources */,
 			);
 			name = ProgressiveOverloadTracker;
 			packageProductDependencies = (

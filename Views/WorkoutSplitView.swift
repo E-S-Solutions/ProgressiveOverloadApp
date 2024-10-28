@@ -13,9 +13,15 @@ struct WorkoutSplitView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest var exercises: FetchedResults<ProgressiveOverloadTracker.Exercise>
 
+    // State variables for modal form
+    @State private var showAddExerciseForm = false
+    @State private var exerciseName = ""
+    @State private var reps = ""
+    @State private var sets = ""
+    @State private var weight = ""
+
     init(split: ProgressiveOverloadTracker.WorkoutSplit) {
         self.split = split
-        // Initialize FetchRequest to fetch exercises associated with this workout split
         _exercises = FetchRequest(
             entity: ProgressiveOverloadTracker.Exercise.entity(),
             sortDescriptors: [NSSortDescriptor(keyPath: \ProgressiveOverloadTracker.Exercise.date, ascending: true)],
@@ -25,7 +31,6 @@ struct WorkoutSplitView: View {
 
     var body: some View {
         VStack {
-            // Display workout split name and creation date
             Text(split.name ?? "Unnamed Split")
                 .font(.largeTitle)
                 .padding()
@@ -34,7 +39,6 @@ struct WorkoutSplitView: View {
                 .font(.subheadline)
                 .padding()
 
-            // List of exercises
             List {
                 ForEach(exercises) { exercise in
                     VStack(alignment: .leading) {
@@ -52,20 +56,22 @@ struct WorkoutSplitView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: addExercise) {
+                    Button(action: {
+                        showAddExerciseForm.toggle()
+                    }) {
                         Label("Add Exercise", systemImage: "plus")
                     }
                 }
             }
+            .sheet(isPresented: $showAddExerciseForm) {
+                AddExerciseForm(
+                    isPresented: $showAddExerciseForm,
+                    split: split,
+                    context: viewContext
+                )
+            }
         }
         .navigationTitle("Workout Split Details")
-    }
-
-    private func addExercise() {
-        // Add a sample exercise to the workout split
-        withAnimation {
-            PersistenceController.shared.addExercise(to: split, name: "New Exercise", reps: 10, sets: 3, weight: 50.0)
-        }
     }
 
     private func deleteExercises(at offsets: IndexSet) {
@@ -76,12 +82,12 @@ struct WorkoutSplitView: View {
     }
 }
 
-// Date formatter to display dates in a user-friendly format
 private let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .medium
     return formatter
 }()
+
 
 
 

@@ -23,7 +23,7 @@ struct HomeView: View {
                 // Intro Section
                 VStack(alignment: .leading, spacing: 10) {
                     HStack {
-                        Image("profileImage") // Add your profile image to Assets.xcassets
+                        Image(systemName: "person.circle")
                             .resizable()
                             .scaledToFill()
                             .frame(width: 60, height: 60)
@@ -36,7 +36,7 @@ struct HomeView: View {
                                 .fontWeight(.bold)
                                 .foregroundColor(Color("primaryText"))
                             
-                            Text("As a fitness enthusiast and web developer, I share my journey with tech and fitness.")
+                            Text("As a fitness enthusiast and iOS developer, I built this app to share my journey in a way that feels personal and interactive. By combining my love for tech with my passion for fitness, I’ve created a platform where I can document my progress, share ideas, and connect with others on similar paths. Through regular updates, honest reflections, and a focus on progressive overload tracking, my goal is to inspire everyone to start or keep going on their fitness journey. Whether you’re here to find inspiration or track your progress, enjoy the process and keep pushing forward!")
                                 .font(.body)
                                 .foregroundColor(Color("primaryText").opacity(0.8))
                         }

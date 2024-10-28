@@ -15,21 +15,41 @@ struct HomeView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \ProgressiveOverloadTracker.WorkoutSplit.creationDate, ascending: false)],
         animation: .default
     ) private var splits: FetchedResults<ProgressiveOverloadTracker.WorkoutSplit>
-
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 
-                // Branding/Introduction Section
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Welcome to Overload Pro")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color("accentColor"))
+                // Intro Section
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack {
+                        Image("profileImage") // Add your profile image to Assets.xcassets
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 60, height: 60)
+                            .clipShape(Circle())
+                            .overlay(Circle().stroke(Color("accentColor"), lineWidth: 2))
+                        
+                        VStack(alignment: .leading) {
+                            Text("Fitness Journey and Beyond")
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color("primaryText"))
+                            
+                            Text("As a fitness enthusiast and web developer, I share my journey with tech and fitness.")
+                                .font(.body)
+                                .foregroundColor(Color("primaryText").opacity(0.8))
+                        }
+                    }
                     
-                    Text("Your personal fitness portfolio and tracker for progressive overload.")
-                        .font(.subheadline)
-                        .foregroundColor(Color("primaryText"))
+                    HStack(spacing: 15) {
+                        Image(systemName: "link.circle.fill")
+                        Image(systemName: "envelope.circle.fill")
+                        Image(systemName: "bolt.circle.fill")
+                        // Customize your social icons as needed
+                    }
+                    .foregroundColor(Color("accentColor"))
+                    .padding(.top, 5)
                 }
                 .padding()
                 .background(Color("primaryBackground"))
@@ -37,23 +57,25 @@ struct HomeView: View {
                 .padding([.top, .horizontal])
                 
                 // Articles Section
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 10) {
                     Text("Articles")
                         .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundColor(Color("accentColor"))
                     
-                    ForEach(0..<3) { _ in
-                        // Placeholder for articles - replace with actual article data when available
+                    ForEach(0..<2) { _ in
+                        // Placeholder for articles
                         Text("Sample Article Title")
                             .font(.headline)
                             .foregroundColor(Color("primaryText"))
+                            .padding(.vertical, 5)
                     }
                     
                     NavigationLink(destination: ArticlesView()) {
                         Text("View All Articles")
                             .font(.subheadline)
                             .foregroundColor(Color("accentColor"))
+                            .padding(.top, 5)
                     }
                 }
                 .padding()
@@ -62,7 +84,7 @@ struct HomeView: View {
                 .padding(.horizontal)
                 
                 // Progress Tracker Section
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 10) {
                     Text("Progress Tracker")
                         .font(.title2)
                         .fontWeight(.semibold)
@@ -79,10 +101,11 @@ struct HomeView: View {
                                     .font(.caption)
                                     .foregroundColor(Color.gray)
                             }
+                            .padding()
+                            .background(Color("secondaryBackground"))
+                            .cornerRadius(8)
+                            .shadow(radius: 2)
                         }
-                        .padding()
-                        .background(Color("secondaryBackground"))
-                        .cornerRadius(8)
                     }
                     
                     Button(action: addSplit) {
@@ -100,7 +123,7 @@ struct HomeView: View {
         .background(Color("background").ignoresSafeArea())
         .navigationTitle("Home")
     }
-
+    
     private func addSplit() {
         withAnimation {
             PersistenceController.shared.addWorkoutSplit(name: "New Split")

@@ -38,6 +38,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				AddExerciseForm.swift,
+				ArticlesView.swift,
 				HomeView.swift,
 				WorkoutSplitView.swift,
 			);

@@ -7,7 +7,7 @@
 import Foundation
 
 class ArticleService {
-    private let urlString = "https://www.overload-pro.com/_next/data/4XmRdBav5FvBpDy_wP-9Z/articles.json"
+    private let urlString = "https://www.overload-pro.com/_next/data/ZNSNKvXl5QlqDWQHQVICd/articles.json"
 
     func fetchArticles(completion: @escaping ([Article]?) -> Void) {
         guard let url = URL(string: urlString) else {

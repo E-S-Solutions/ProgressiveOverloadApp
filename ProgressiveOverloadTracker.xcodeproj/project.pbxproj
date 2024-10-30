@@ -41,6 +41,7 @@
 				AddExerciseForm.swift,
 				ArticleDetailView.swift,
 				ArticlesView.swift,
+				ContactView.swift,
 				HomeView.swift,
 				MainTabView.swift,
 				ProgressTrackerView.swift,

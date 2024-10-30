@@ -16,12 +16,15 @@ struct ProgressTrackerView: View {
         animation: .default
     ) private var splits: FetchedResults<ProgressiveOverloadTracker.WorkoutSplit>
 
+    @State private var newSplitName: String = ""
+    @State private var isShowingAddSplitAlert = false
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                Text("Progress Tracker")
-                    .font(.largeTitle)
-                    .padding()
+//                Text("Progress Tracker")
+//                    .font(.largeTitle)
+//                    .padding()
 
                 List {
                     ForEach(splits, id: \.self) { split in
@@ -40,11 +43,20 @@ struct ProgressTrackerView: View {
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: addSplit) {
+                        Button(action: {
+                            isShowingAddSplitAlert = true
+                        }) {
                             Label("Add Split", systemImage: "plus")
                         }
                     }
                 }
+                .alert("New Split", isPresented: $isShowingAddSplitAlert, actions: {
+                    TextField("Enter split name", text: $newSplitName)
+                    Button("Add", action: addSplit)
+                    Button("Cancel", role: .cancel) { newSplitName = "" }
+                }, message: {
+                    Text("Please enter a name for the new workout split.")
+                })
             }
             .navigationTitle("Progress")
         }
@@ -52,7 +64,18 @@ struct ProgressTrackerView: View {
     
     private func addSplit() {
         withAnimation {
-            PersistenceController.shared.addWorkoutSplit(name: "New Split")
+            let newSplit = ProgressiveOverloadTracker.WorkoutSplit(context: viewContext)
+            newSplit.name = newSplitName.isEmpty ? "New Split" : newSplitName
+            newSplit.creationDate = Date()
+            
+            do {
+                try viewContext.save()
+                newSplitName = "" // Clear the name after saving
+                isShowingAddSplitAlert = false // Dismiss the alert
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
         }
     }
 
@@ -69,4 +92,3 @@ private let dateFormatter: DateFormatter = {
     formatter.dateStyle = .medium
     return formatter
 }()
-

@@ -39,12 +39,22 @@
 			membershipExceptions = (
 				AboutView.swift,
 				AddExerciseForm.swift,
+				ArticleDetailView.swift,
 				ArticlesView.swift,
 				HomeView.swift,
 				MainTabView.swift,
 				ProgressTrackerView.swift,
 				ProjectsView.swift,
 				WorkoutSplitView.swift,
+			);
+			target = 3F0BBC502CD00DB900EC8850 /* ProgressiveOverloadTracker */;
+		};
+		3F211C092CD0434800D02681 /* Exceptions for "Models" folder in "ProgressiveOverloadTracker" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Article.swift,
+				ArticleRowView.swift,
+				ArticleService.swift,
 			);
 			target = 3F0BBC502CD00DB900EC8850 /* ProgressiveOverloadTracker */;
 		};
@@ -68,6 +78,9 @@
 		};
 		3F211B7D2CD01F8800D02681 /* Models */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3F211C092CD0434800D02681 /* Exceptions for "Models" folder in "ProgressiveOverloadTracker" target */,
+			);
 			path = Models;
 			sourceTree = "<group>";
 		};

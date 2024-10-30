@@ -13,20 +13,39 @@ struct PersistenceController {
     static let preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
-            let newSplit = WorkoutSplit(context: viewContext)
-            newSplit.name = "Sample Split"
-            newSplit.creationDate = Date()
+        
+        // Sample split
+        let sampleSplit = WorkoutSplitEntity(context: viewContext)
+        sampleSplit.name = "Push/Pull/Legs"
+        sampleSplit.creationDate = Date()
+        
+        // Add sample days and exercises
+        let days = ["Monday", "Tuesday", "Wednesday", "Friday", "Saturday", "Sunday"]
+        let exercises = [
+            ["Bench Press", "Shoulder Press", "Tricep Dips"],
+            ["Pull-Up", "Deadlift", "Bicep Curl"],
+            ["Squat", "Leg Press", "Calf Raise"],
+            ["Bench Press", "Shoulder Fly", "Tricep Extension"],
+            ["Lat Pulldown", "Row", "Hammer Curl"],
+            ["Leg Extension", "Lunge", "Leg Curl"]
+        ]
+        
+        for (index, day) in days.enumerated() {
+            let workoutDay = WorkoutDayEntity(context: viewContext)
+            workoutDay.dayOfWeek = day
+            workoutDay.split = sampleSplit
             
-            let newExercise = Exercise(context: viewContext)
-            newExercise.name = "Sample Exercise"
-            newExercise.reps = 10
-            newExercise.sets = 3
-            newExercise.weight = 50.0
-            newExercise.date = Date()
-            
-            newSplit.addToExercises(newExercise)
+            for exerciseName in exercises[index] {
+                let exercise = ExerciseEntity(context: viewContext)
+                exercise.name = exerciseName
+                exercise.sets = 3
+                exercise.reps = 10
+                exercise.weight = 50.0
+                exercise.workoutDay = workoutDay // Set relationship to the day
+            }
+            sampleSplit.addToWorkoutDays(workoutDay)
         }
+        
         do {
             try viewContext.save()
         } catch {
@@ -54,20 +73,26 @@ struct PersistenceController {
     // MARK: - Helper Functions
 
     func addWorkoutSplit(name: String) {
-        let split = WorkoutSplit(context: container.viewContext)
+        let split = WorkoutSplitEntity(context: container.viewContext)
         split.name = name
         split.creationDate = Date()
         saveContext()
     }
 
-    func addExercise(to split: WorkoutSplit, name: String, reps: Int, sets: Int, weight: Double) {
-        let exercise = Exercise(context: container.viewContext)
+    func addWorkoutDay(to split: WorkoutSplitEntity, dayOfWeek: String) {
+        let workoutDay = WorkoutDayEntity(context: container.viewContext)
+        workoutDay.dayOfWeek = dayOfWeek
+        workoutDay.split = split
+        saveContext()
+    }
+
+    func addExercise(to workoutDay: WorkoutDayEntity, name: String, reps: Int, sets: Int, weight: Double) {
+        let exercise = ExerciseEntity(context: container.viewContext)
         exercise.name = name
         exercise.reps = Int16(reps)
         exercise.sets = Int16(sets)
         exercise.weight = weight
-        exercise.date = Date()
-        split.addToExercises(exercise)
+        exercise.workoutDay = workoutDay // Set relationship to the day
         saveContext()
     }
 
@@ -83,5 +108,6 @@ struct PersistenceController {
         }
     }
 }
+
 
 

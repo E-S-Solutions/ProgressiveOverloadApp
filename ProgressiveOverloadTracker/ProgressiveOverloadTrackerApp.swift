@@ -10,7 +10,6 @@ import SwiftUI
 @main
 struct ProgressiveOverloadTrackerApp: App {
     let persistenceController = PersistenceController.shared
-
     var body: some Scene {
         WindowGroup {
             MainTabView()

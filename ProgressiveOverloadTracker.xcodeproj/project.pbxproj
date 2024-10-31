@@ -35,6 +35,9 @@
 			membershipExceptions = (
 				AboutView.swift,
 				AddExerciseForm.swift,
+				AddExerciseView.swift,
+				AddSplitView.swift,
+				AddWorkoutDayView.swift,
 				ArticleDetailView.swift,
 				ArticlesView.swift,
 				CalendarWeekView.swift,
@@ -44,6 +47,8 @@
 				ProgressTrackerView.swift,
 				ProjectsView.swift,
 				TodayWorkoutView.swift,
+				WorkoutDayDetailView.swift,
+				WorkoutSplitDetailView.swift,
 				WorkoutSplitView.swift,
 			);
 			target = 3F0BBC502CD00DB900EC8850 /* ProgressiveOverloadTracker */;

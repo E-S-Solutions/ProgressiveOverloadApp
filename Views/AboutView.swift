@@ -50,7 +50,7 @@ struct AboutView: View {
 }
 
 // Media Carousel
-struct MediaCarouselView: View {
+struct MediaCarouselView: View { 
     // Sample media URLs (images and video URLs)
     let media: [Media] = [
         .image("profileImage"), // Replace with real image names in assets
